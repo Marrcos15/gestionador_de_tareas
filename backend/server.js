@@ -1,5 +1,6 @@
 var express = require('express');
 var cors = require('cors');
+var body_parser = require('body-parser')
 
 var app = express();
 
@@ -13,11 +14,23 @@ var corsOpt = {
 var tareas= [{trabajo: 'primera tarea', usuario:'David'},
             {trabajo: 'segunda tarea', usuario: 'Daniel'}];
 
-app.use(cors())
+app.use(body_parser.json());
 
-app.get('/tareas', cors(corsOpt), (request, response) => {
+var api = express.Router()
+
+
+api.get('/tareas', cors(corsOpt), (request, response) => {
     /* Cuando el usuario hace una petición a tareas le devolvemos una respuesta con un json de la variable tareas */
     response.json(tareas);
 })
 
-app.listen(1234);
+
+api.post('/tarea', cors(corsOpt), (request, response) => {
+    /* Cuando el usuario hace una petición a tarea se realiza un push para incluirla en el listado */
+    tareas.push(request.body);
+    response.sendStatus(200);
+})
+
+app.use('/api', api);
+
+app.listen(7070);
