@@ -17,6 +17,7 @@ var tareas= [{trabajo: 'primera tarea', usuario:'David'},
 app.use(body_parser.json());
 
 var api = express.Router()
+api.use(cors())
 
 
 api.get('/tareas', cors(corsOpt), (request, response) => {
@@ -28,7 +29,7 @@ api.get('/tareas', cors(corsOpt), (request, response) => {
 api.post('/tarea', cors(corsOpt), (request, response) => {
     /* Cuando el usuario hace una petición a tarea se realiza un push para incluirla en el listado */
     tareas.push(request.body);
-    response.sendStatus(200);
+    response.json(request.body);
 })
 
 app.use('/api', api);
