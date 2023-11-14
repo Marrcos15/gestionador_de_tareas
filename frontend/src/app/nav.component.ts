@@ -3,7 +3,25 @@ import { WebService } from "./web.service";
 
 @Component({
     selector: 'nav',
-    template: `<mat-toolbar color="primary">Gestionador de tareas</mat-toolbar>
+    template: `<mat-toolbar color="primary">Gestionador de tareas
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/">
+            <mat-icon>home</mat-icon>
+            <span>Inicio</span>
+        </button>
+        <button mat-menu-item routerLink="/tarea">
+            <mat-icon>note_add</mat-icon>
+            <span>Nueva Tarea</span>
+        </button>
+        <button mat-menu-item routerLink="/tareas">
+            <mat-icon>assignment_turned_in</mat-icon>
+            <span>Tareas</span>
+        </button>
+    </mat-menu>
+    </mat-toolbar>
     `
 })
 
