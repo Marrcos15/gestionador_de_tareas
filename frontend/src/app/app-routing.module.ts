@@ -13,6 +13,10 @@ const routes: Routes = [{
     component: TareasComponent
   },
   {
+    path: 'tareas/:username',
+    component: TareasComponent
+  },
+  {
     path: 'tarea',
     component: NuevaTareaComponent
   }];
