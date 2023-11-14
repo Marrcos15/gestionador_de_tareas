@@ -14,17 +14,17 @@ export class WebService{
     /* Inicializador del servicio http */
     constructor(private http: HttpClient, private _snackBar: MatSnackBar){
         this.tareas = [];
-        this.getTask();
+        this.getTask('');
     }
     
-    async getTask(){
-        try {
-            this.respuesta = await this.http.get(this.APIURL +'/tareas').toPromise();
-            this.tareas = this.respuesta;
-        } catch (error) {
+    getTask(username: any){
+        /* Si encuentra username lo filtra sino lo deja vacio */
+        username = (username) ? '/' + username: '';
+        this.http.get(this.APIURL +'/tareas' + username).subscribe(res => {
+            this.tareas = res;
+        }, error => {
             this.manejadorErrores('No se ha podido obtener tareas');
-        }
-        
+        });  
     }
     
     async postTask(_tarea: any){

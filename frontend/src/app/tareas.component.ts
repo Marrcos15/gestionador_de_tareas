@@ -15,12 +15,16 @@ import { ActivatedRoute, Params } from "@angular/router";
 
 export class TareasComponent {
 
+    username : any;
+
     /* Cargamos la respuesta del servicio web y obtenemos la ruta que está activa */
-    constructor(public webservice: WebService, private rutaActiva: ActivatedRoute){}
+    constructor(public webservice: WebService, private rutaActiva: ActivatedRoute){
+    }
 
     ngOnInit(): void {
-        /* Comprobación de que estemos cogiendo bien el nombre de usuario */
-        console.log(this.rutaActiva.snapshot.params['username']);
+        /* Recogemos el nombre de usuario para filtrarlo con getTask() de nuestro webService */
+       this.username = this.rutaActiva.snapshot.params['username'];
+       this.webservice.getTask(this.username);
 
     }
 }

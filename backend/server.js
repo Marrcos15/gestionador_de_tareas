@@ -25,6 +25,13 @@ api.get('/tareas', cors(corsOpt), (request, response) => {
     response.json(tareas);
 })
 
+api.get('/tareas/:username', cors(corsOpt), (request, response) => {
+    var username = request.params['username']
+    var resultado = tareas.filter(tarea => tarea.usuario == username)
+    /* Cuando el usuario hace una petición a tareas le devolvemos una respuesta con un json de la variable tareas */
+    response.json(resultado);
+})
+
 
 api.post('/tarea', cors(corsOpt), (request, response) => {
     /* Cuando el usuario hace una petición a tarea se realiza un push para incluirla en el listado */
