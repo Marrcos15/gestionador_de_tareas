@@ -1,6 +1,11 @@
 var express = require('express');
 var cors = require('cors');
-var body_parser = require('body-parser')
+var body_parser = require('body-parser');
+
+/* Se encarga de configurar el token */
+var jwt = require('jsonwebtoken');
+
+var config = require('./configs/config')
 
 var app = express();
 
@@ -46,7 +51,13 @@ api.post('/tarea', cors(corsOpt), (request, response) => {
 
 auth.use(cors());
 auth.post('/register', cors(corsOpt), (request, response) => {
-    users.push(request.body);
+    /* Para obtener el indice del usuario que se crea */
+    var index = users.push(request.body) -1;
+    var user = users[index];
+    user.id = index;
+
+    var token = jwt.sign(user.id, config.llave)
+    response.json(token);
 })
 
 
