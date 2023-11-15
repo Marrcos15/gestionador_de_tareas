@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
 
 @Injectable()
 
@@ -10,6 +11,7 @@ export class WebService{
 
     tareas: any;
     respuesta: any;
+    tareasSujeto = new Subject();
 
     /* Inicializador del servicio http */
     constructor(private http: HttpClient, private _snackBar: MatSnackBar){
@@ -22,6 +24,8 @@ export class WebService{
         username = (username) ? '/' + username: '';
         this.http.get(this.APIURL +'/tareas' + username).subscribe(res => {
             this.tareas = res;
+            /* Ahora los componentes accederan al sujeto */
+            this.tareasSujeto.next(this.tareas);
         }, error => {
             this.manejadorErrores('No se ha podido obtener tareas');
         });  
@@ -31,6 +35,7 @@ export class WebService{
         try {
             this.respuesta = await this.http.post(this.APIURL + '/tarea', _tarea).toPromise();
             this.tareas.push(this.respuesta);
+            this.tareasSujeto.next(this.tareas)
         } catch (error) {
             this.manejadorErrores('No se ha podido publicar la tarea');
         }
