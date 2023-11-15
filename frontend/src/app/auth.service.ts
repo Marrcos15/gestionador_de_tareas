@@ -21,6 +21,7 @@ export class AuthService{
         delete user.cpassword;
 
         this.http.post(this.APIURL +'/register', user).subscribe(res => {
+            localStorage.setItem('token', res.toString());
         }, error => {
             this.manejadorErrores('No se ha podido registrar al usuario');
         });  
