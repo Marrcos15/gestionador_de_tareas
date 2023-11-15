@@ -57,7 +57,8 @@ auth.post('/register', cors(corsOpt), (request, response) => {
     user.id = index;
 
     var token = jwt.sign(user.id, config.llave)
-    response.json(token);
+    /* Pasamos el nombre y el token */
+    response.json({nombre: user.nombre, token});
 })
 
 

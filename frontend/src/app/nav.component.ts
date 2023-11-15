@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { WebService } from "./web.service";
+import { AuthService } from "./auth.service";
 
 @Component({
     selector: 'nav',
@@ -25,11 +25,19 @@ import { WebService } from "./web.service";
             <span>Añadir usuario</span>
         </button>
     </mat-menu>
+    <span style="flex: 1 1 auto"></span>
+    <span *ngIf="ident"> Bienvenido {{name}} </span>
     </mat-toolbar>
     `
 })
 
 export class NavComponent {
 
-    constructor(){}
+    name: string;
+    ident: boolean;
+
+    constructor(private auth: AuthService){
+        this.name = auth.name;
+        this.ident = auth.identificado;
+    }
 }
