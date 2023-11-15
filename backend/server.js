@@ -14,10 +14,15 @@ var corsOpt = {
 var tareas= [{trabajo: 'primera tarea', usuario:'David'},
             {trabajo: 'segunda tarea', usuario: 'Daniel'}];
 
+var users = [];
+
 app.use(body_parser.json());
 
-var api = express.Router()
-api.use(cors())
+var api = express.Router();
+var auth = express.Router();
+
+
+api.use(cors());
 
 
 api.get('/tareas', cors(corsOpt), (request, response) => {
@@ -39,6 +44,13 @@ api.post('/tarea', cors(corsOpt), (request, response) => {
     response.json(request.body);
 })
 
+auth.use(cors());
+auth.post('/register', cors(corsOpt), (request, response) => {
+    users.push(request.body);
+})
+
+
 app.use('/api', api);
+app.use('/auth', auth);
 
 app.listen(7070);

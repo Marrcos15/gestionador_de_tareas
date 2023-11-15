@@ -16,6 +16,10 @@ export class AuthService{
     }
     
     register(user: any){
+
+        /* Borramos la confirmación del password ya que no es necesario */
+        delete user.cpassword;
+
         this.http.post(this.APIURL +'/register', user).subscribe(res => {
         }, error => {
             this.manejadorErrores('No se ha podido registrar al usuario');

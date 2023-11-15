@@ -20,6 +20,10 @@ import { WebService } from "./web.service";
             <mat-icon>assignment_turned_in</mat-icon>
             <span>Tareas</span>
         </button>
+        <button mat-menu-item routerLink="/register">
+            <mat-icon>group_add</mat-icon>
+            <span>Añadir usuario</span>
+        </button>
     </mat-menu>
     </mat-toolbar>
     `
