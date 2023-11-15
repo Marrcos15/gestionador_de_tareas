@@ -8,6 +8,7 @@ import { TareasComponent } from './tareas.component';
 import { NuevaTareaComponent } from './nueva-tarea.component'
 import { NavComponent } from './nav.component';
 import { HomeComponent } from './home.component';
+import { RegisterComponent } from './register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
@@ -17,7 +18,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import { WebService } from './web.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     TareasComponent,
     NuevaTareaComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [WebService],
   bootstrap: [AppComponent]

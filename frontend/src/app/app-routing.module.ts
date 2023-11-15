@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { TareasComponent } from './tareas.component';
 import { NuevaTareaComponent } from './nueva-tarea.component';
+import { RegisterComponent } from './register.component';
 
 const routes: Routes = [{
   path: '',
@@ -19,6 +20,10 @@ const routes: Routes = [{
   {
     path: 'tarea',
     component: NuevaTareaComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   }];
 
 @NgModule({
