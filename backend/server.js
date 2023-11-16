@@ -1,13 +1,13 @@
 var express = require('express');
 var cors = require('cors');
 var body_parser = require('body-parser');
-
-/* Se encarga de configurar el token */
 var jwt = require('jsonwebtoken');
-
 var config = require('./configs/config')
+var mongodb = require('mongodb')
+
 
 var app = express();
+
 
 /* Opciones del cors para solo acceder desde la URL que trabaja el frontend */
 var corsOpt = {
