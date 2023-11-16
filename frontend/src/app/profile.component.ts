@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { WebService } from "./web.service";
 
 @Component({
@@ -7,7 +7,7 @@ import { WebService } from "./web.service";
         <mat-card-title>Editar Perfil</mat-card-title>
         <mat-form-field class="example-full-width">
             <mat-label>Nombre </mat-label>
-            <input [(ngModel)]="modelo.nombre" matInput placeholder="Nombre">
+            <input [(ngModel)]="modelo.nombre" matInput placeholder="nombre">
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Email</mat-label>
@@ -18,18 +18,19 @@ import { WebService } from "./web.service";
     </mat-card>`
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent{
 
     /* Cargamos la respuesta del servicio web */
     constructor(private webservice: WebService){}
 
-    modelo = { nombre: '', email: ''}
+    modelo = {nombre: '', email:''};
+
 
     /* Para cargar los datos de usuario al llamal al componente */
-    ngOnInit(){
+    ngOnInit(): void {
         this.webservice.getUser().subscribe((res: { nombre: string; email: string; }) => {
             this.modelo.nombre = res.nombre;
-            this.modelo.email = res.email;    
+            this.modelo.email = res.email;
         });
     }
 

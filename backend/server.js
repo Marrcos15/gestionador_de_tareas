@@ -50,7 +50,7 @@ api.post('/tarea', cors(corsOpt), (request, response) => {
 })
 
 api.get('/users/yop' , cors(corsOpt), checkauth, (request, response) => {
-    response.json[request.user]
+    response.json(users[request.user])
 })
 
 api.post('/users/yop' , cors(corsOpt), checkauth, (request, response) => {
