@@ -14,6 +14,10 @@ export class WebService{
     respuesta: any;
     tareasSujeto = new Subject();
 
+    headers = new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+    });
+
     /* Inicializador del servicio http */
     constructor(private http: HttpClient, private _snackBar: MatSnackBar){
         this.tareas = [];
@@ -44,26 +48,16 @@ export class WebService{
     }
 
     getUser(): any{
-        const headers = this.auth_headers()
-        return this.http.get(this.APIURL + '/users/yop', {headers}).pipe(map(res => res));
+        return this.http.get(this.APIURL + '/users/yop', {headers: this.headers}).pipe(map(res => res));
     }
 
     saveUser(usermodel: any): any {
-        const headers = this.auth_headers()
-        return this.http.post(this.APIURL + '/users/yop', usermodel, {headers}).pipe(map(res => res));
+        return this.http.post(this.APIURL + '/users/yop', usermodel, {headers: this.headers}).pipe(map(res => res));
     }
 
     private manejadorErrores(error: any){
         this._snackBar.open(error, 'Cerrar', {
             duration: 2000
         });
-    }
-
-    auth_headers(){
-        const auth_header = new HttpHeaders({
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        });
-
-        return auth_header;
     }
 }
