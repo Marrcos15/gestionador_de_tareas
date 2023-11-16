@@ -49,6 +49,10 @@ api.post('/tarea', cors(corsOpt), (request, response) => {
     response.json(request.body);
 })
 
+api.get('/users/yop' , cors(corsOpt), checkauth, (request, response) => {
+    response.json[request.user]
+})
+
 auth.use(cors());
 auth.post('/login', cors(corsOpt), (request, response) => {
     /* Encuentra el usuario que coincide con el email de la petición*/
@@ -80,6 +84,19 @@ function sendtoken(user, response){
 
 function senderrorauth(response){
     return response.json({success : false, message: 'Email o password erroneo'});
+}
+
+/* Middleware */
+function checkauth(req, res, next){
+    if(!req.header('Authorization'))
+        return res.status(401).send({message: 'No tienes autorización'});
+    var token = req.header('authorization').split(' ')[1];
+    var decode = jwt.verify(token, config.llave);
+    if(!decode)
+        return res.status(401).send({message: 'El token no es valido'});
+    /* Si pasa todas las validaciones, el id del usuario = decode */
+    req.user = decode;
+    next();
 }
 
 app.use('/api', api);

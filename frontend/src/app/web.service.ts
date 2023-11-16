@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 
@@ -40,6 +41,13 @@ export class WebService{
             this.manejadorErrores('No se ha podido publicar la tarea');
         }
 
+    }
+
+    getUser() {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        this.http.get(this.APIURL + '/users/yop', {headers}).pipe(map(res => res)).subscribe();
     }
 
     private manejadorErrores(error: any){

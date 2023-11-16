@@ -29,5 +29,7 @@ export class TareasComponent {
        this.webservice.tareasSujeto.subscribe(tareas => {
             this.tareasLista = tareas;
        });
+       /* Para cargar el usuario cuando se acceda a este componente */
+       this.webservice.getUser();
     }
 }
