@@ -34,7 +34,7 @@ import { AuthService } from "./auth.service";
         </button>
     </mat-menu>
     <span style="flex: 1 1 auto"></span>
-    <span *ngIf="ident"> Bienvenido {{name}} </span>
+    <span *ngIf="ident" routerLink="/profile"> Bienvenido {{name}} </span>
     </mat-toolbar>
     `
 })

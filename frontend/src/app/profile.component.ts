@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { WebService } from "./web.service";
 
 @Component({
@@ -18,7 +18,7 @@ import { WebService } from "./web.service";
     </mat-card>`
 })
 
-export class ProfileComponent{
+export class ProfileComponent implements OnInit {
 
     /* Cargamos la respuesta del servicio web */
     constructor(private webservice: WebService){}

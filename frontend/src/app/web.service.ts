@@ -44,16 +44,12 @@ export class WebService{
     }
 
     getUser(): any{
-        const headers = new HttpHeaders({
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        });
+        const headers = this.auth_headers()
         return this.http.get(this.APIURL + '/users/yop', {headers}).pipe(map(res => res));
     }
 
     saveUser(usermodel: any): any {
-        const headers = new HttpHeaders({
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        });
+        const headers = this.auth_headers()
         return this.http.post(this.APIURL + '/users/yop', usermodel, {headers}).pipe(map(res => res));
     }
 
@@ -61,5 +57,13 @@ export class WebService{
         this._snackBar.open(error, 'Cerrar', {
             duration: 2000
         });
+    }
+
+    auth_headers(){
+        const auth_header = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+
+        return auth_header;
     }
 }

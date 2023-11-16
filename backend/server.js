@@ -54,7 +54,7 @@ api.get('/users/yop' , cors(corsOpt), checkauth, (request, response) => {
 })
 
 api.post('/users/yop' , cors(corsOpt), checkauth, (request, response) => {
-    var user = user[response.user];
+    var user = users[request.user];
     user.nombre = request.body.nombre;
     user.email = request.body.email;
     response.json(user);

@@ -6,10 +6,6 @@ import { WebService } from "./web.service";
     template: `<mat-card> 
         <mat-card-title>Añadir tarea</mat-card-title>
         <mat-form-field class="example-full-width">
-            <mat-label>Nombre usuario: </mat-label>
-            <input [(ngModel)]="tarea.usuario" matInput placeholder="username">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
             <mat-label>Especifique su tarea:</mat-label>
             <textarea [(ngModel)]="tarea.trabajo" matInput placeholder="Introduzca aquí su tarea"></textarea>
         </mat-form-field>
@@ -25,7 +21,14 @@ export class NuevaTareaComponent {
 
     tarea = { trabajo: '', usuario: ''}
 
+    ngOnInit(): void {
+        this.webservice.getUser().subscribe((res: { nombre: string; email: string; }) => {
+            this.tarea.usuario = res.nombre;
+        });
+    }
+
     post() {
         this.webservice.postTask(this.tarea);
+        console.log(this.tarea)
     }
 }
