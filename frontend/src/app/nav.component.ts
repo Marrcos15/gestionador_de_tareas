@@ -28,6 +28,10 @@ import { AuthService } from "./auth.service";
             <mat-icon>logout</mat-icon>
             <span>Cerrar Sesion</span>
         </button>
+        <button mat-menu-item (click)="logout()" routerLink="/login">
+            <mat-icon>login</mat-icon>
+            <span>Acceso Usuario</span>
+        </button>
     </mat-menu>
     <span style="flex: 1 1 auto"></span>
     <span *ngIf="ident"> Bienvenido {{name}} </span>
@@ -46,6 +50,6 @@ export class NavComponent {
     }
 
     logout(){
-        localStorage.clear();
+       this.auth.logout();
     }
 }

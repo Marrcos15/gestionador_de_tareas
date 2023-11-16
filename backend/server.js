@@ -19,7 +19,7 @@ var corsOpt = {
 var tareas= [{trabajo: 'primera tarea', usuario:'David'},
             {trabajo: 'segunda tarea', usuario: 'Daniel'}];
 
-var users = [];
+var users = [{nombre: 'marcos', email: 'm@mg.com', password: '1', id: 0}];
 
 app.use(body_parser.json());
 
@@ -50,17 +50,37 @@ api.post('/tarea', cors(corsOpt), (request, response) => {
 })
 
 auth.use(cors());
+auth.post('/login', cors(corsOpt), (request, response) => {
+    /* Encuentra el usuario que coincide con el email de la petición*/
+    var user = users.find(user => user.email == request.body.email);
+    /* Si no encuentra el usuario envia un error */
+    if (!user) 
+        senderrorauth(response);
+    /* Si encuentra al usuario y la password coincide, envia el toquen de inicio de sesion */
+    if (user.password == request.body.password)
+        sendtoken(user, response);
+    else
+        senderrorauth(response);
+
+})
+
 auth.post('/register', cors(corsOpt), (request, response) => {
     /* Para obtener el indice del usuario que se crea */
     var index = users.push(request.body) -1;
     var user = users[index];
     user.id = index;
+    sendtoken(user, response);
+})
 
+function sendtoken(user, response){
     var token = jwt.sign(user.id, config.llave)
     /* Pasamos el nombre y el token */
     response.json({nombre: user.nombre, token});
-})
+}
 
+function senderrorauth(response){
+    return response.json({success : false, message: 'Email o password erroneo'});
+}
 
 app.use('/api', api);
 app.use('/auth', auth);
