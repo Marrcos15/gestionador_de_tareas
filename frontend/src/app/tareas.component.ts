@@ -30,6 +30,6 @@ export class TareasComponent {
             this.tareasLista = tareas;
        });
        /* Para cargar el usuario cuando se acceda a este componente */
-       this.webservice.getUser();
+       this.webservice.getUser().subscribe();
     }
 }

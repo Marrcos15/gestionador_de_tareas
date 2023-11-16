@@ -53,6 +53,13 @@ api.get('/users/yop' , cors(corsOpt), checkauth, (request, response) => {
     response.json[request.user]
 })
 
+api.post('/users/yop' , cors(corsOpt), checkauth, (request, response) => {
+    var user = user[response.user];
+    user.nombre = request.body.nombre;
+    user.email = request.body.email;
+    response.json(user);
+})
+
 auth.use(cors());
 auth.post('/login', cors(corsOpt), (request, response) => {
     /* Encuentra el usuario que coincide con el email de la petición*/
@@ -90,7 +97,7 @@ function senderrorauth(response){
 function checkauth(req, res, next){
     if(!req.header('Authorization'))
         return res.status(401).send({message: 'No tienes autorización'});
-    var token = req.header('authorization').split(' ')[1];
+    var token = req.headers.authorization.split(' ')[1];
     var decode = jwt.verify(token, config.llave);
     if(!decode)
         return res.status(401).send({message: 'El token no es valido'});

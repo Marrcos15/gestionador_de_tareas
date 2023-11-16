@@ -43,11 +43,18 @@ export class WebService{
 
     }
 
-    getUser() {
+    getUser(): any{
         const headers = new HttpHeaders({
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         });
-        this.http.get(this.APIURL + '/users/yop', {headers}).pipe(map(res => res)).subscribe();
+        return this.http.get(this.APIURL + '/users/yop', {headers}).pipe(map(res => res));
+    }
+
+    saveUser(usermodel: any): any {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.post(this.APIURL + '/users/yop', usermodel, {headers}).pipe(map(res => res));
     }
 
     private manejadorErrores(error: any){

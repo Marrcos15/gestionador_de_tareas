@@ -1,3 +1,3 @@
 module.exports = {
-    llave: 'misuperclaveessecreta7070*-´'
+    llave: 'misuperclaveessecreta7070'
 }
