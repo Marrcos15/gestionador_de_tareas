@@ -24,6 +24,10 @@ import { AuthService } from "./auth.service";
             <mat-icon>group_add</mat-icon>
             <span>Añadir usuario</span>
         </button>
+        <button mat-menu-item (click)="logout()" routerLink="/">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar Sesion</span>
+        </button>
     </mat-menu>
     <span style="flex: 1 1 auto"></span>
     <span *ngIf="ident"> Bienvenido {{name}} </span>
@@ -36,8 +40,12 @@ export class NavComponent {
     name: string;
     ident: boolean;
 
-    constructor(private auth: AuthService){
+    constructor(private auth: AuthService) {
         this.name = auth.name;
         this.ident = auth.identificado;
+    }
+
+    logout(){
+        localStorage.clear();
     }
 }
